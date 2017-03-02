@@ -1,4 +1,4 @@
-package com.sdvor.messeger.controlers
+package com.sdvor.messenger.controllers
 
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RestController
  * Created by mteterin on 01.03.2017.
  */
 @RestController
-class RESTCotroller {
+open class RESTController {
 
-    @PostMapping(name = "api/auth")
+    @PostMapping("api/auth")
     fun auth(@RequestBody phone: String): ResponseEntity<String> {
-        return ResponseEntity.ok().body(phone + " ok!")
+        return ResponseEntity.ok().body(phone)
     }
 
-    @PostMapping(name = "api/auth/validate")
+    @PostMapping("api/auth/validate")
     fun validateSmsCode(): ResponseEntity<String> {
         return ResponseEntity.ok().build()
     }

@@ -1,4 +1,4 @@
-package com.sdvor.messeger;
+package com.sdvor.messenger;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

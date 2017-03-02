@@ -1,4 +1,4 @@
-package com.sdvor.messeger.entities
+package com.sdvor.messenger.entities
 
 /**
  * Created by mteterin on 01.03.2017.

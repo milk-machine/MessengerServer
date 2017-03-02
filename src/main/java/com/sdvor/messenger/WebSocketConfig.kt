@@ -1,4 +1,4 @@
-package com.sdvor.messeger
+package com.sdvor.messenger
 
 import org.springframework.context.annotation.Configuration
 import org.springframework.messaging.simp.config.MessageBrokerRegistry
