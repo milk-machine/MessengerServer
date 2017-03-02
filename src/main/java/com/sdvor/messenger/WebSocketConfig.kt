@@ -1,24 +1,28 @@
 package com.sdvor.messenger
 
+import com.sdvor.messenger.entities.Handler
+import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.messaging.simp.config.MessageBrokerRegistry
-import org.springframework.web.socket.config.annotation.AbstractWebSocketMessageBrokerConfigurer
-import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker
-import org.springframework.web.socket.config.annotation.StompEndpointRegistry
+import org.springframework.web.socket.WebSocketHandler
+import org.springframework.web.socket.config.annotation.*
 
 
 /**
  * Created by mteterin on 02.03.2017.
  */
 @Configuration
-@EnableWebSocketMessageBroker
-open class WebSocketConfig : AbstractWebSocketMessageBrokerConfigurer() {
+@EnableWebSocket
+open class WebSocketConfig : WebSocketConfigurer {
 
-    override fun registerStompEndpoints(registry: StompEndpointRegistry) {
-        registry.addEndpoint("/api").withSockJS()
+    override fun registerWebSocketHandlers(registry: WebSocketHandlerRegistry) {
+        registry.addHandler(getHandler(), "/ws").withSockJS()
     }
 
-    override fun configureMessageBroker(config: MessageBrokerRegistry) {
-        config.enableSimpleBroker("/topic", "/queue")
+    @Bean
+    open fun getHandler(): WebSocketHandler {
+        return Handler()
     }
+
+
 }

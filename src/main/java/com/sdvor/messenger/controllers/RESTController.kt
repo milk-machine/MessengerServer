@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController
  * Created by mteterin on 01.03.2017.
  */
 @RestController
-open class RESTController {
+class RESTController {
 
     @PostMapping("api/auth")
     fun auth(@RequestBody phone: String): ResponseEntity<String> {
