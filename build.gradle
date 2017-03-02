@@ -31,7 +31,6 @@ repositories {
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-websocket')
 	compile("org.springframework.boot:spring-boot-starter-actuator")
-	compile("org.springframework.boot:spring-boot-starter-spring-messaging")
     compile 'org.springframework.security:spring-security-web:4.2.2.RELEASE'
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
