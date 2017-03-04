@@ -1,6 +1,5 @@
 package com.sdvor.messenger
 
-import com.sdvor.messenger.entities.Handler
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.messaging.simp.config.MessageBrokerRegistry
@@ -12,17 +11,14 @@ import org.springframework.web.socket.config.annotation.*
  * Created by mteterin on 02.03.2017.
  */
 @Configuration
-@EnableWebSocket
-open class WebSocketConfig : WebSocketConfigurer {
+@EnableWebSocketMessageBroker
+open class WebSocketConfig : AbstractWebSocketMessageBrokerConfigurer() {
 
-    override fun registerWebSocketHandlers(registry: WebSocketHandlerRegistry) {
-        registry.addHandler(getHandler(), "/ws").withSockJS()
+    override fun registerStompEndpoints(registry: StompEndpointRegistry) {
+        registry.addEndpoint("/ws").withSockJS()
     }
 
-    @Bean
-    open fun getHandler(): WebSocketHandler {
-        return Handler()
+    override fun configureMessageBroker(registry: MessageBrokerRegistry) {
+        registry.enableSimpleBroker("/chat")
     }
-
-
 }
