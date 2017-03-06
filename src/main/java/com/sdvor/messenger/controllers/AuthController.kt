@@ -19,8 +19,8 @@ class AuthController {
     private val SMS_GATE_API_KEY = "DD2E6238-4FDF-C67F-26D1-32CEA25E4E9F"
 
     @PostMapping("api/auth")
-    fun auth(@RequestBody phone: String): ResponseEntity<String> {
-        val smsCode = SmsCodeManager.getCode(phone)
+    fun requestSms(@RequestBody phone: String): ResponseEntity<String> {
+        val smsCode = SmsCodeManager.generateNewCode(phone)
 
         val url = UriComponentsBuilder.fromUriString("https://sms.ru/sms/send")
                 .queryParam("api_id", SMS_GATE_API_KEY)
@@ -37,7 +37,10 @@ class AuthController {
 
     @PostMapping("api/auth/validate")
     fun validateSmsCode(@RequestBody validatingData: AuthValidatingData): ResponseEntity<String> {
-        if (SmsCodeManager.checkCode(validatingData.phone, validatingData.code))
+        val phone = validatingData.phone
+        val code = validatingData.code
+
+        if (SmsCodeManager.checkCode(phone, code))
             return ResponseEntity.ok().build()
         else
             return ResponseEntity.status(401).build()
