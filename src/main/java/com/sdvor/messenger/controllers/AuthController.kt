@@ -19,8 +19,8 @@ class AuthController {
     private val SMS_GATE_API_KEY = "DD2E6238-4FDF-C67F-26D1-32CEA25E4E9F"
 
     @PostMapping("api/auth")
-    fun requestSms(@RequestBody json: Map<String, String>): ResponseEntity<String> {
-        val phone = json["phone"]!!
+    fun requestSms(@RequestBody body: Map<String, String>): ResponseEntity<String> {
+        val phone = body["phone"]!!
         val smsCode = SmsCodeManager.generateNewCode(phone)
 
         val url = UriComponentsBuilder.fromUriString("https://sms.ru/sms/send")

@@ -12,5 +12,4 @@ object ChatManager {
     fun onNewMessage(message: ChatMessage) {
         messages += message
     }
-
 }
