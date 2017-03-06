@@ -1,7 +1,6 @@
 package com.sdvor.messenger.controllers
 
 import com.sdvor.messenger.entities.AuthValidatingData
-import com.sdvor.messenger.entities.Phone
 import com.sdvor.messenger.managers.SmsCodeManager
 import org.springframework.http.HttpMethod
 import org.springframework.http.ResponseEntity
@@ -20,8 +19,9 @@ class AuthController {
     private val SMS_GATE_API_KEY = "DD2E6238-4FDF-C67F-26D1-32CEA25E4E9F"
 
     @PostMapping("api/auth")
-    fun requestSms(@RequestBody phone: Phone): ResponseEntity<String> {
-        val smsCode = SmsCodeManager.generateNewCode(phone.phone)
+    fun requestSms(@RequestBody json: Map<String, String>): ResponseEntity<String> {
+        val phone = json["phone"]!!
+        val smsCode = SmsCodeManager.generateNewCode(phone)
 
         val url = UriComponentsBuilder.fromUriString("https://sms.ru/sms/send")
                 .queryParam("api_id", SMS_GATE_API_KEY)
