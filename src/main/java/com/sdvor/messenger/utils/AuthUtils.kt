@@ -1,6 +1,5 @@
 package com.sdvor.messenger.utils
 
-import java.math.BigInteger
 import java.security.SecureRandom
 
 /**
@@ -9,7 +8,5 @@ import java.security.SecureRandom
 
 fun generateSmsCode(): String {
 
-    val random = SecureRandom()
-
-    return BigInteger(130, random).toString()
+    return (10000 + SecureRandom().nextInt(90000)).toString()
 }

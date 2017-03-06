@@ -1,10 +1,13 @@
 package com.sdvor.messenger.controllers
 
-import com.sdvor.messenger.utils.generateSmsCode
+import com.sdvor.messenger.entities.AuthValidatingData
+import com.sdvor.messenger.managers.SmsCodeManager
+import org.springframework.http.HttpMethod
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.client.RestTemplate
 import org.springframework.web.util.UriComponentsBuilder
 
 /**
@@ -17,18 +20,26 @@ class AuthController {
 
     @PostMapping("api/auth")
     fun auth(@RequestBody phone: String): ResponseEntity<String> {
-        val uri = UriComponentsBuilder.fromUriString("https://sms.ru/sms/send")
+        val smsCode = SmsCodeManager.getCode(phone)
+
+        val url = UriComponentsBuilder.fromUriString("https://sms.ru/sms/send")
                 .queryParam("api_id", SMS_GATE_API_KEY)
                 .queryParam("to", phone)
-                .queryParam("text", generateSmsCode())
+                .queryParam("text", smsCode)
                 .build()
+                .encode()
+                .toUri()
 
+        RestTemplate().execute<Unit>(url, HttpMethod.POST, null, null)
 
         return ResponseEntity.ok().build()
     }
 
     @PostMapping("api/auth/validate")
-    fun validateSmsCode(): ResponseEntity<String> {
-        return ResponseEntity.ok().build()
+    fun validateSmsCode(@RequestBody validatingData: AuthValidatingData): ResponseEntity<String> {
+        if (SmsCodeManager.checkCode(validatingData.phone, validatingData.code))
+            return ResponseEntity.ok().build()
+        else
+            return ResponseEntity.status(401).build()
     }
 }
