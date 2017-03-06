@@ -10,6 +10,8 @@
 .springBeans
 
 ### IntelliJ IDEA ###
+gradle/
+classes/
 .idea
 *.iws
 *.iml
@@ -22,4 +24,3 @@ dist/
 nbdist/
 .nb-gradle/
 /out/
-/gradle/

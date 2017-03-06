@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller
  * Created by kefir on 04.03.2017.
  */
 @Controller
-class WebSocketController {
+class ChatController {
 
     @MessageMapping("/chat")
     @SendTo("/chat/messages")
