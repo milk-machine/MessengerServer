@@ -19,7 +19,7 @@ function connect() {
         setConnected(true);
         console.log('Connected: ' + frame);
         stompClient.subscribe('/chat/messages', function (message) {
-            showMessage(message.body);
+            showMessage(JSON.parse(message.body));
         });
     });
 }
@@ -37,7 +37,7 @@ function sendMessage() {
 }
 
 function showMessage(message) {
-    $("#messages").append("<tr><td>" + message + "</td></tr>");
+    $("#messages").append("<tr><td><b>" + message.userName + ":</b> " + message.text + "</td></tr>");
 }
 
 $(function () {
