@@ -5,10 +5,10 @@ function setConnected(connected) {
     $("#disconnect").prop("disabled", !connected);
     if (connected) {
         $("#conversation").show();
-    }
-    else {
+    } else {
         $("#conversation").hide();
     }
+
     $("#messages").html("");
 }
 
@@ -33,7 +33,12 @@ function disconnect() {
 }
 
 function sendMessage() {
-    stompClient.send("/chat", {}, JSON.stringify({'userName': "Admin",'text': $("#message").val()}));
+    var message = $("#message").val()
+    if (message=="") return;
+
+    $("#message").val("")
+    stompClient.send("/chat", {}, JSON.stringify({'userName': "Admin",'text': message}));
+
 }
 
 function showMessage(message) {
