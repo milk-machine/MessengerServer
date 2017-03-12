@@ -1,4 +1,4 @@
-package com.sdvor.messenger.controllers
+package com.sdvor.messenger.ws
 
 import com.sdvor.messenger.entities.ChatMessage
 import com.sdvor.messenger.managers.ChatManager
@@ -15,7 +15,8 @@ class ChatController {
     @MessageMapping("/chat")
     @SendTo("/chat/messages")
     fun chating(message: ChatMessage): ChatMessage {
-        ChatManager.onNewMessage(message)
+        ChatManager.addNewMessage(message)
+
         return message
     }
 }

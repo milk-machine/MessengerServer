@@ -9,7 +9,9 @@ object ChatManager {
 
     private val messages = mutableListOf<ChatMessage>()
 
-    fun onNewMessage(message: ChatMessage) {
+    fun addNewMessage(message: ChatMessage) {
         messages += message
     }
+
+    fun getAllMessages() = listOf(messages)
 }
