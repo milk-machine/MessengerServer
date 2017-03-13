@@ -1,4 +1,4 @@
-package com.sdvor.messenger.ws
+package com.sdvor.messenger.network.ws
 
 import com.sdvor.messenger.entities.ChatMessage
 import com.sdvor.messenger.managers.ChatManager

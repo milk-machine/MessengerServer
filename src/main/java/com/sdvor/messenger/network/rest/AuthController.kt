@@ -1,4 +1,4 @@
-package com.sdvor.messenger.rest
+package com.sdvor.messenger.network.rest
 
 import com.sdvor.messenger.entities.AuthValidatingData
 import com.sdvor.messenger.managers.SmsCodeManager
