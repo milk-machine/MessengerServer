@@ -23,6 +23,12 @@ class AuthController {
         val phone = body["phone"]!!
         val smsCode = SmsCodeManager.generateNewCode(phone)
 
+        sendCodeToClientFromSmsGate(phone, smsCode)
+
+        return ResponseEntity.ok().build()
+    }
+
+    private fun sendCodeToClientFromSmsGate(phone: String, smsCode: String) {
         val url = UriComponentsBuilder.fromUriString("https://sms.ru/sms/send")
                 .queryParam("api_id", SMS_GATE_API_KEY)
                 .queryParam("to", phone)
@@ -32,8 +38,6 @@ class AuthController {
                 .toUri()
 
         RestTemplate().execute<Unit>(url, HttpMethod.POST, null, null)
-
-        return ResponseEntity.ok().build()
     }
 
     @PostMapping("api/auth/validate")
