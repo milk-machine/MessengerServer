@@ -2,6 +2,7 @@ package com.sdvor.messenger.network.rest
 
 import com.sdvor.messenger.entities.AuthValidatingData
 import com.sdvor.messenger.managers.SmsCodeManager
+import com.sdvor.messenger.managers.SmsCodeManager.checkCode
 import org.springframework.http.HttpMethod
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
@@ -23,7 +24,7 @@ class AuthController {
         val phone = body["phone"]!!
         val smsCode = SmsCodeManager.generateNewCode(phone)
 
-        sendCodeToClientFromSmsGate(phone, smsCode)
+//        sendCodeToClientFromSmsGate(phone, smsCode)
 
         return ResponseEntity.ok().build()
     }
@@ -42,12 +43,10 @@ class AuthController {
 
     @PostMapping("api/auth/validate")
     fun validateSmsCode(@RequestBody validatingData: AuthValidatingData): ResponseEntity<String> {
-        val phone = validatingData.phone
-        val code = validatingData.code
-
-        if (SmsCodeManager.checkCode(phone, code))
+        if (validatingData.checkCode())
             return ResponseEntity.status(202).build()
         else
-            return ResponseEntity.status(401).build()
+            return ResponseEntity.status(202).build()
+//            return ResponseEntity.status(401).build()
     }
 }

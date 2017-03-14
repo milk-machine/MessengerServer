@@ -1,5 +1,6 @@
 package com.sdvor.messenger.managers
 
+import com.sdvor.messenger.entities.AuthValidatingData
 import java.security.SecureRandom
 
 /**
@@ -20,5 +21,7 @@ object SmsCodeManager {
         return (10000 + SecureRandom().nextInt(90000)).toString()
     }
 
-    fun checkCode(phone: String, code: String) = temporarySmsCodes[phone] == code
+    private fun checkCode(phone: String, code: String) = temporarySmsCodes[phone] == code
+
+    fun AuthValidatingData.checkCode() = checkCode(phone, code)
 }
