@@ -22,3 +22,4 @@ open class WebSocketConfig : AbstractWebSocketMessageBrokerConfigurer() {
         registry.enableSimpleBroker("/chat")
     }
 }
+
